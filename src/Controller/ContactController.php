@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Contact;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,6 +38,7 @@ class ContactController extends AbstractController
 
         $form = $this->createForm(ContactType::class, $contact, [
             'action' => $this->generateUrl('add_contact'),
+            'attr' => ['class' => 'add_form']
         ]);
 
         $form->handleRequest($request);
@@ -68,7 +68,8 @@ class ContactController extends AbstractController
         $contact = new Contact();
 
         $form = $this->createForm(ContactType::class, $contact, [
-            'action' => $this->generateUrl('update_contact')
+            'action' => $this->generateUrl('update_contact'),
+            'attr' => ['class' => 'update_form']
         ]);
 
         $form->handleRequest($request);
@@ -78,7 +79,7 @@ class ContactController extends AbstractController
             $contact = $form->getData();
 
             $entityManager = $this->getDoctrine()->getManager();
-            $contactToUpdate = $entityManager->getRepository(Contact::class)->find($request->request->all()['contact']['id']);
+            $contactToUpdate = $entityManager->getRepository(Contact::class)->find($request->request->get('contact')['id']);
 
             $contactToUpdate->setLastName($contact->getLastName());
             $contactToUpdate->setFirstName($contact->getFirstName());
