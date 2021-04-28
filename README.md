@@ -1,7 +1,7 @@
 # Contacts: list, add, update, delete
 
 ## Docker env
-docker-compose -d up
+docker-compose up -d
 
 ## App install and data preload
 composer install
