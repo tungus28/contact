@@ -3,7 +3,7 @@
 ## Docker env
 docker-compose up -d
 
-## App install and data preload
+## App install
 composer install
 
 php bin/console make:migration
