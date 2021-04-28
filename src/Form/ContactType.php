@@ -20,7 +20,9 @@ class ContactType extends AbstractType
             ->add('firstName', TextType::class)
             ->add('phone', TelType::class)
             ->add('email', EmailType::class)
-            ->add('id', HiddenType::class)
+            ->add('id', HiddenType::class, [
+                'mapped' => false
+            ])
         ;
     }
 
