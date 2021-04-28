@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contacts{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div  class="table-wrapper">
+            <div class="table-title">
+                <div class="row mb-2 mt-2">
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-4">
+                        <button type="button" data-toggle="modal" data-target="#addContact" class="pull-right mr-2 btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Last name</th>
+                    <th>First name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th style="max-width: 4.5rem;">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for contact in contacts %}
+                        <tr data-id="{{ contact.id }}">
+                            <td>{{ contact.lastName|e }}</td>
+                            <td>{{ contact.firstName|e }}</td>
+                            <td>{{ contact.phone|e }}</td>
+                            <td>{{ contact.email|e }}</td>
+                            <td>
+                                <a href="" onclick="editContact({{ contact.id }})" class="edit" data-toggle="modal" data-target="#updateContact" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+                                <a href="/delete/{{ contact.id }}" class="delete pull-right" title="" data-toggle="tooltip" data-original-title="Delete">
+                                    <span style="color: red;">
+                                        <i class="fa fa-trash"></i>
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {{ render(controller(
+        'App\\Controller\\ContactController::add'
+    )) }}
+    {{ render(controller(
+        'App\\Controller\\ContactController::update'
+    )) }}
+{% endblock %}
