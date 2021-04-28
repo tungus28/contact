@@ -38,8 +38,14 @@ $(function() {
     })
     .on('success.form.bv', function(e) {
         e.preventDefault();
+        $('.custom-notice').remove();
+        $('.help-block').hide();
 
         if( $('.update_form').find('#contact_email').val().match(emailPattern) === null ) {
+            $('.update_form')
+                .find('#contact_email')
+                .after('<small class="custom-notice"  className="invalid-feedback"> Please enter a fully valid email address </small>');
+
             return;
         }
 
@@ -66,15 +72,20 @@ $(function() {
             },
         }
     })
-        .on('success.form.bv', function(e) {
-            e.preventDefault();
+    .on('success.form.bv', function(e) {
+        e.preventDefault();
+        $('.custom-notice').remove();
+        $('.help-block').hide();
+        if( $('.add_form').find('#contact_email').val().match(emailPattern) === null ) {
+            $('.add_form')
+                .find('#contact_email')
+                .after('<small class="custom-notice"  className="invalid-feedback"> Please enter a fully valid email address </small>');
 
-            if( $('.add_form').find('#contact_email').val().match(emailPattern) === null ) {
-                return;
-            }
+            return;
+        }
 
-            $('.add_form').bootstrapValidator('defaultSubmit');
-        });
+        $('.add_form').bootstrapValidator('defaultSubmit');
+    });
 
 });
 
