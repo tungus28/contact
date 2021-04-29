@@ -77,9 +77,9 @@ class ContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $contact = $form->getData();
-
+            
             $entityManager = $this->getDoctrine()->getManager();
-            $contactToUpdate = $entityManager->getRepository(Contact::class)->find($request->request->get('contact')['id']);
+            $contactToUpdate = $entityManager->getRepository(Contact::class)->find($form->get('id')->getData());
 
             $contactToUpdate->setLastName($contact->getLastName());
             $contactToUpdate->setFirstName($contact->getFirstName());
